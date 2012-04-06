@@ -1,0 +1,21 @@
+<h1>Programming::Programs#show</h1>
+<p>View file app/views/programming/programs/show.html.erb</p>
+
+<p>
+	<%= link_to 'View Task', @task, class: 'btn' %>
+	<%= link_to 'New Program', new_programming_task_program_path(@task), class: 'btn' %>
+	<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
+</p>
+
+<h2><%= @task.name %></h2>
+<p>Programming Language: <%= @program.programming_language.name %></p>
+<% if @program.status_code %>
+<p>
+	Status:
+	<strong class="label <%= status_label(@program.status_code.name) %>">
+		<%= @program.status_code.name %></strong> -
+	<%= @program.status_code.description %>
+</p>
+<% end %>
+
+<pre><%= @program.source_code %></pre>

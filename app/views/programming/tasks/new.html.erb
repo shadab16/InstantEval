@@ -1,0 +1,16 @@
+<h1>Programming::Tasks#new</h1>
+<p>View file app/views/programming/tasks/new.html.erb</p>
+
+<p>
+	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
+	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+</p>
+
+<div class="row">
+	<div class="span8 offset2">
+		<%= form_for(@task) do |form| %>
+			<%= render 'form', f: form %>
+			<%= form.submit "Create Task", class: 'btn btn-primary' %>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+<h1>Programming::Tasks#index</h1>
+<p>View file app/views/programming/tasks/index.html.erb</p>
+
+<p>
+	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+</p>
+
+<ul>
+<% @tasks.each do |task| %>
+	<li><%= link_to task.name, task %></li>
+<% end %>
+</ul>

@@ -1,0 +1,25 @@
+<h1>Programming::Programs#new</h1>
+<p>View file app/views/programming/programs/new.html.erb</p>
+
+<p>
+	<%= link_to 'View Task', @task, class: 'btn' %>
+	<%= link_to 'New Program', new_programming_task_program_path(@task), class: 'btn' %>
+</p>
+
+<h2><%= @task.name %></h2>
+
+<div class="row">
+	<div class="span8 offset2">
+		<%= form_for([@task, @program]) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.label :source_code %>
+			<%= f.text_area :source_code, rows: 25 %>
+
+			<%= f.label :programming_language_id %>
+			<%= f.select :programming_language_id, @languages.collect { |lang| [lang.name, lang.id] } %>
+
+			<%= f.submit "Submit", class: 'btn btn-primary' %>
+		<% end %>
+	</div>
+</div>

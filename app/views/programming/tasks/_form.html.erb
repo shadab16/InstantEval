@@ -1,0 +1,32 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :statement %>
+<%= f.text_area :statement, rows: 10 %>
+
+<%= f.label :input_format %>
+<%= f.text_area :input_format, rows: 10 %>
+
+<%= f.label :memory_limit %>
+<%= f.number_field :memory_limit, min: 0 %>
+
+<%= f.label :time_limit %>
+<%= f.number_field :time_limit, min: 1 %>
+
+<%= f.fields_for :programming_language_ids do |builder| %>
+	<% lang_ids = @task.programming_language_ids %>
+	<% @languages.each do |lang| %>
+		<% checkbox = builder.check_box lang.id, checked: lang_ids.include?(lang.id) %>
+		<%= builder.label lang.id, checkbox + lang.name, class: 'checkbox' %>
+	<% end %>
+<% end %>
+
+<%= f.fields_for :programming_test_cases do |builder| %>
+	<%= builder.label :stdin %>
+	<%= builder.text_area :stdin, rows: 5 %>
+	
+	<%= builder.label :stdout %>
+	<%= builder.text_area :stdout, rows: 5 %>
+<% end %>

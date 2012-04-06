@@ -1,0 +1,50 @@
+<h1>Programming::Tasks#show</h1>
+<p>View file app/views/programming/tasks/show.html.erb</p>
+
+<p>
+	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
+	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<%= link_to 'Edit Task', edit_programming_task_path(@task), class: 'btn' %>
+	<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
+	<%= link_to 'Submit Program', new_programming_task_program_path(@task), class: 'btn' %>
+</p>
+
+<h2><%= @task.name %></h2>
+
+<div class="row">
+	<div class="span8">
+		<p><strong>Problem Statement:</strong></p>
+		<ul>
+			<li><%= @task.statement %></li>
+		</ul>
+		<p><strong>Code Format:</strong></p>
+		<ul>
+			<li><%= @task.input_format %></li>
+		</ul>
+		<p><strong>Resource Limits:</strong></p>
+		<ul>
+			<li>Memory: <%= @task.memory_limit %> bytes</li>
+			<li>Time: <%= @task.time_limit %> seconds</li>
+		</ul>
+		<p><strong>Available Languages:</strong></p>
+		<ul>
+		<% @task.programming_languages.each do |lang| %>
+			<li><%= link_to lang.name, lang %></li>
+		<% end %>
+		</ul>
+	</div>
+	<div class="span4">
+		<p><strong>Program Submissions:</strong></p>
+		<% @task.programs.each do |program| %>
+		<ul>
+			<li><%= link_to program, [@task, program] %></li>
+		</ul>
+		<% end %>
+	</div>
+</div>
+<% @task.programming_test_cases.each do |testcase| %>
+	<p><strong>Test Case Input:</strong></p>
+	<pre><%= testcase.stdin %></pre>
+	<p><strong>Expected Output:</strong></p>
+	<pre><%= testcase.stdout %></pre>
+<% end %>

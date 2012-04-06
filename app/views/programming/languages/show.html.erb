@@ -1,0 +1,15 @@
+<h1>Programming::Languages#show</h1>
+<p>View file app/views/programming/languages/show.html.erb</p>
+
+<p>
+	<%= link_to 'All Languages', programming_languages_path, class: 'btn' %>
+	<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
+	<%= link_to 'Edit Language', edit_programming_language_path(@language), class: 'btn' %>
+	<%= link_to 'Delete', @language, method: :delete, class: 'btn btn-danger' %>
+</p>
+
+<h2><%= @language.name %></h2>
+<p>
+	Available for submissions?
+	<strong><%= @language.available?.to_s.capitalize %></strong>
+</p>

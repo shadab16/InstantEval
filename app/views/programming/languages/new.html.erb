@@ -1,0 +1,16 @@
+<h1>Programming::Languages#new</h1>
+<p>View file app/views/programming/languages/new.html.erb</p>
+
+<p>
+	<%= link_to 'All Languages', programming_languages_path, class: 'btn' %>
+	<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
+</p>
+
+<div class="row">
+	<div class="span8 offset2">
+		<%= form_for(@language) do |form| %>
+			<%= render 'form', f: form %>
+			<%= form.submit "Create Language", class: 'btn btn-primary' %>
+		<% end %>
+	</div>
+</div>
