@@ -10,5 +10,6 @@ class Program < ActiveRecord::Base
 	belongs_to :programming_task
 	belongs_to :user
 	belongs_to :status_code
+	has_many :program_results, dependent: :destroy
 
 end
