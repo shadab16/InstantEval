@@ -59,12 +59,12 @@ class Programming::ProgramsController < ApplicationController
 				end
 				testcase = @program.programming_task.programming_test_cases.first
 				Open3.popen2e(out) do |stdin, stdout, thread|
-					stdin.write testcase.stdin.gsub("\r\n", "\n")
+					stdin.write testcase.stdin.gsub("\r\n?", "\n")
 					stdin.flush
 					stdin.close_write
 					exit_code = thread.value
-					output = stdout.read.gsub("\r\n", "\n").strip
-					expected = testcase.stdout.gsub("\r\n", "\n").strip
+					output = stdout.read.gsub("\r\n?", "\n").strip
+					expected = testcase.stdout.gsub("\r\n?", "\n").strip
 					@program.status_code_id = codes[:ok] if output == expected
 					@program.status_code_id = codes[:fail] if output != expected
 					@program.status_code_id = codes[:exit] unless exit_code.success?
