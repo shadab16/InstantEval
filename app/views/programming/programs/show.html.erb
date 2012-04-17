@@ -19,3 +19,30 @@
 <% end %>
 
 <pre><%= @program.source_code %></pre>
+
+<% if @program.program_results.any? %>
+<p>Program Results</p>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Test#</th>
+			<th>Expected</th>
+			<th>Output</th>
+			<th>Result</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @program.program_results.each do |result| %>
+		<tr>
+			<td><%= result.programming_test_case_id %></td>
+			<td class="code"><%= result.programming_test_case.stdout.inspect %></td>
+			<td class="code"><%= result.log.inspect %></td>
+			<td>
+				<strong class="label <%= status_label(result.status_code.name) %>">
+					<%= result.status_code.name %></strong>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

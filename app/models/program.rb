@@ -12,4 +12,6 @@ class Program < ActiveRecord::Base
 	belongs_to :status_code
 	has_many :program_results, dependent: :destroy
 
+	accepts_nested_attributes_for :program_results
+
 end

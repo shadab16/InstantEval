@@ -16,6 +16,15 @@ body {
 	margin-top: 1em;
 }
 
+.code {
+	white-space: pre;
+	white-space: pre-wrap;
+	word-break: break-all;
+	word-wrap: break-word;
+	font-size: $baseFontSize - 1;
+	@include font-family-monospace();
+}
+
 /* forms */
 
 textarea {

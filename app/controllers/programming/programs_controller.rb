@@ -55,19 +55,26 @@ class Programming::ProgramsController < ApplicationController
 				exit_code = thread.value
 				unless exit_code.success?
 					@program.status_code_id = codes[:compile]
-					return
+					next
 				end
-				testcase = @program.programming_task.programming_test_cases.first
-				Open3.popen2e(out) do |stdin, stdout, thread|
-					stdin.write testcase.stdin.gsub("\r\n?", "\n")
-					stdin.flush
-					stdin.close_write
-					exit_code = thread.value
-					output = stdout.read.gsub("\r\n?", "\n").strip
-					expected = testcase.stdout.gsub("\r\n?", "\n").strip
-					@program.status_code_id = codes[:ok] if output == expected
-					@program.status_code_id = codes[:fail] if output != expected
-					@program.status_code_id = codes[:exit] unless exit_code.success?
+				testcases = @program.programming_task.programming_test_cases
+				testcases.each do |testcase|
+					Open3.popen2e(out) do |stdin, stdout, thread|
+						stdin.write testcase.stdin
+						stdin.flush
+						stdin.close_write
+						exit_code = thread.value
+						output = stdout.read.gsub(/\r\n?/, "\n").strip
+						expected = testcase.stdout
+						status = codes[:ok] if output == expected
+						status = codes[:fail] if output != expected
+						status = codes[:exit] unless exit_code.success?
+						@program.program_results.new(
+							programming_test_case_id: testcase.id,
+							status_code_id: status,
+							log: output
+						)
+					end
 				end
 			end
 			File.delete(out)

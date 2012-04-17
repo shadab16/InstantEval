@@ -2,7 +2,6 @@ class ProgramResult < ActiveRecord::Base
 
 	attr_accessible :programming_test_case_id, :status_code_id, :time, :memory, :log
 
-	validates :program_id, presence: true
 	validates :programming_test_case_id, presence: true
 	validates :status_code_id, presence: true
 
