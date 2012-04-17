@@ -23,12 +23,14 @@ class Programming::TasksController < ApplicationController
 			redirect_to @task
 		else
 			@languages = ProgrammingLanguage.available
+			@task.programming_test_cases.build if @task.programming_test_cases.blank?
 			render :new
 		end
 	end
 
 	def edit
 		@task = ProgrammingTask.find_by_id(params[:id]) || not_found
+		@task.programming_test_cases.build
 		@languages = ProgrammingLanguage.available
 	end
 
@@ -39,6 +41,7 @@ class Programming::TasksController < ApplicationController
 			redirect_to @task
 		else
 			@languages = ProgrammingLanguage.available
+			@task.programming_test_cases.build if @task.programming_test_cases.blank?
 			render :edit
 		end
 	end
