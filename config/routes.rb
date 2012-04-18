@@ -5,6 +5,8 @@ PublicApp::Application.routes.draw do
 	get "page/about"
 	get "page/contact"
 
+	devise_for :users
+
 	namespace :programming do
 		resources :tasks do
 			resources :testcases, except: [:index]
