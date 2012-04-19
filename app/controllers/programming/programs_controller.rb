@@ -14,7 +14,7 @@ class Programming::ProgramsController < ApplicationController
 	def create
 		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
 		@program = @task.programs.new(params[:program])
-		evaluate
+		evaluate if @program.valid?
 		if @program.save
 			flash[:success] = "Program Submitted!"
 			redirect_to [@task, @program]

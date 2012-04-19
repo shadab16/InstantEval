@@ -1,12 +1,16 @@
-<h2>Resend unlock instructions</h2>
+<% content_for(:title, "Resend unlock instructions") %>
 
-<%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.submit "Resend unlock instructions" %></div>
+<% attributes = {method: :post, class: 'form-horizontal'} %>
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: attributes) do |f| %>
+	<legend>Resend unlock instructions</legend>
+	<%= render 'shared/error_messages', object: f.object %>
+	<div class="control-group">
+		<%= f.label :email, class: 'control-label' %>
+		<div class="controls">
+			<%= f.email_field :email, class: 'input-xlarge' %>
+		</div>
+	</div>
+	<div class="form-actions">
+		<%= f.submit "Resend", class: 'btn btn-primary' %>
+	</div>
 <% end %>
-
-<%= render "links" %>
