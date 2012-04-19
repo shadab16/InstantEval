@@ -1,32 +1,67 @@
 <%= render 'shared/error_messages', object: f.object %>
 
-<%= f.label :name %>
-<%= f.text_field :name %>
+<fieldset>
+	<div class="control-group">
+		<%= f.label :name, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :name, class: 'input-xlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :statement, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_area :statement, rows: 10, class: 'input-xxlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :input_format, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_area :input_format, rows: 10, class: 'input-xxlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :memory_limit, class: 'control-label' %>
+		<div class="controls">
+			<%= f.number_field :memory_limit, min: 0, class: 'input-xlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :time_limit, class: 'control-label' %>
+		<div class="controls">
+			<%= f.number_field :time_limit, min: 1, class: 'input-xlarge' %>
+		</div>
+	</div>
+</fieldset>
 
-<%= f.label :statement %>
-<%= f.text_area :statement, rows: 10 %>
-
-<%= f.label :input_format %>
-<%= f.text_area :input_format, rows: 10 %>
-
-<%= f.label :memory_limit %>
-<%= f.number_field :memory_limit, min: 0 %>
-
-<%= f.label :time_limit %>
-<%= f.number_field :time_limit, min: 1 %>
-
-<%= f.fields_for :programming_language_ids do |builder| %>
-	<% lang_ids = @task.programming_language_ids %>
-	<% @languages.each do |lang| %>
-		<% checkbox = builder.check_box lang.id, checked: lang_ids.include?(lang.id) %>
-		<%= builder.label lang.id, checkbox + lang.name, class: 'checkbox' %>
+<fieldset>
+	<legend>Languages Available</legend>
+	<%= f.fields_for :programming_language_ids do |builder| %>
+		<div class="control-group">
+			<div class="controls">
+			<% lang_ids = @task.programming_language_ids %>
+			<% @languages.each do |lang| %>
+				<%= builder.check_box lang.id, checked: lang_ids.include?(lang.id), class: 'pull-left' %>
+				<%= builder.label lang.id, lang.name, class: 'checkbox' %>
+			<% end %>
+			</div>
+		</div>
 	<% end %>
-<% end %>
+</fieldset>
 
-<%= f.fields_for :programming_test_cases do |builder| %>
-	<%= builder.label :stdin %>
-	<%= builder.text_area :stdin, rows: 5 %>
-	
-	<%= builder.label :stdout %>
-	<%= builder.text_area :stdout, rows: 5 %>
-<% end %>
+<fieldset>
+	<legend>Test Cases</legend>
+	<%= f.fields_for :programming_test_cases do |builder| %>
+		<div class="control-group">
+			<%= builder.label :stdin, class: 'control-label' %>
+			<div class="controls">
+				<%= builder.text_area :stdin, rows: 5, class: 'input-xxlarge' %>
+			</div>
+		</div>
+		<div class="control-group">
+			<%= builder.label :stdout, class: 'control-label' %>
+			<div class="controls">
+				<%= builder.text_area :stdout, rows: 5, class: 'input-xxlarge' %>
+			</div>
+		</div>
+	<% end %>
+</fieldset>

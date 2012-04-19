@@ -8,7 +8,7 @@
 	<%= link_to 'Delete', @language, method: :delete, class: 'btn btn-danger' %>
 </p>
 
-<h2><%= @language.name %></h2>
+<h3><%= @language.name %></h3>
 <p>
 	Available for submissions?
 	<strong><%= @language.available?.to_s.capitalize %></strong>

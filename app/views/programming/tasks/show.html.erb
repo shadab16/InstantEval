@@ -1,5 +1,5 @@
-<h2>Programming::Tasks#show</h2>
-<p>View file app/views/programming/tasks/show.html.erb</p>
+<% content_for(:title, "Programming Task - #{@task.name}") %>
+<% content_for(:heading, "Programming Task - #{@task.name}") %>
 
 <p>
 	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
@@ -9,7 +9,7 @@
 	<%= link_to 'Submit Program', new_programming_task_program_path(@task), class: 'btn' %>
 </p>
 
-<h2><%= @task.name %></h2>
+<h3><%= @task.name %></h3>
 
 <div class="row">
 	<div class="span6">
@@ -43,8 +43,14 @@
 	</div>
 </div>
 <% @task.programming_test_cases.each do |testcase| %>
-	<p><strong>Test Case Input:</strong></p>
-	<pre><%= testcase.stdin %></pre>
-	<p><strong>Expected Output:</strong></p>
-	<pre><%= testcase.stdout %></pre>
+<div class="row">
+	<div class="span5">
+		<p><strong>Test Case Input:</strong></p>
+		<pre><%= testcase.stdin %></pre>
+	</div>
+	<div class="span5">
+		<p><strong>Expected Output:</strong></p>
+		<pre><%= testcase.stdout %></pre>
+	</div>
+</div>
 <% end %>

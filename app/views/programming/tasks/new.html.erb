@@ -1,16 +1,15 @@
-<h2>Programming::Tasks#new</h2>
-<p>View file app/views/programming/tasks/new.html.erb</p>
+<% content_for(:title, "New Programming Task") %>
+<% content_for(:heading, "New Programming Task") %>
 
 <p>
 	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
 	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
 </p>
 
-<div class="row">
-	<div class="span6 offset2">
-		<%= form_for(@task) do |form| %>
-			<%= render 'form', f: form %>
-			<%= form.submit "Create Task", class: 'btn btn-primary' %>
-		<% end %>
+<%= form_for(@task, html: {class: 'form-horizontal'}) do |form| %>
+	<legend>Programming Task</legend>
+	<%= render 'form', f: form %>
+	<div class="form-actions">
+		<%= form.submit "Create Task", class: 'btn btn-primary' %>
 	</div>
-</div>
+<% end %>

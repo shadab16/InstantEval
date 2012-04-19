@@ -1,25 +1,30 @@
-<h2>Programming::Programs#new</h2>
-<p>View file app/views/programming/programs/new.html.erb</p>
+<% content_for(:title, "#{@task.name} - New Program") %>
+<% content_for(:heading, "#{@task.name} - New Program") %>
 
 <p>
 	<%= link_to 'View Task', @task, class: 'btn' %>
 	<%= link_to 'New Program', new_programming_task_program_path(@task), class: 'btn' %>
 </p>
 
-<h2><%= @task.name %></h2>
+<%= form_for([@task, @program], html: {class: 'form-horizontal'}) do |f| %>
+	<legend>New Program</legend>
+	<%= render 'shared/error_messages', object: f.object %>
 
-<div class="row">
-	<div class="span6 offset2">
-		<%= form_for([@task, @program]) do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
-
-			<%= f.label :source_code %>
-			<%= f.text_area :source_code, rows: 25 %>
-
-			<%= f.label :programming_language_id %>
-			<%= f.select :programming_language_id, @languages.collect { |lang| [lang.name, lang.id] } %>
-
-			<%= f.submit "Submit", class: 'btn btn-primary' %>
-		<% end %>
+	<div class="control-group">
+		<%= f.label :source_code, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_area :source_code, rows: 25, class: 'input-xxlarge' %>
+		</div>
 	</div>
-</div>
+
+	<div class="control-group">
+		<%= f.label :programming_language_id, class: 'control-label' %>
+		<div class="controls">
+			<%= f.select :programming_language_id, @languages.collect { |lang| [lang.name, lang.id] } %>
+		</div>
+	</div>
+
+	<div class="form-actions">
+		<%= f.submit "Submit", class: 'btn btn-primary' %>
+	</div>
+<% end %>

@@ -1,5 +1,5 @@
-<h2>Programming::Programs#show</h2>
-<p>View file app/views/programming/programs/show.html.erb</p>
+<% content_for(:title, "#{@task.name} - Show Program") %>
+<% content_for(:heading, "#{@task.name} - Show Program") %>
 
 <p>
 	<%= link_to 'View Task', @task, class: 'btn' %>
@@ -7,7 +7,6 @@
 	<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
 </p>
 
-<h2><%= @task.name %></h2>
 <p>Programming Language: <%= @program.programming_language.name %></p>
 <% if @program.status_code %>
 <p>
