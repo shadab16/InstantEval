@@ -5,7 +5,10 @@ PublicApp::Application.routes.draw do
 	get "page/about"
 	get "page/contact"
 
-	devise_for :users
+	devise_for :users, path: 'account',
+			   path_names: {sign_in: 'login', sign_out: 'logout', sign_up: 'register'}
+
+	resources :users, only: [:show]
 
 	namespace :programming do
 		resources :tasks do

@@ -1,0 +1,37 @@
+<% content_for(:title, "User - #{@user.email}") %>
+<% content_for(:heading, "User - #{@user.email}") %>
+
+<p>
+	User information.
+</p>
+
+<table class="table table-striped">
+	<tbody>
+	<tr>
+		<td>Email</td>
+		<td><%= @user.email %></td>
+	</tr>
+	<tr>
+		<td>Registration Date</td>
+		<td><%= @user.created_at.in_time_zone(+5.5).strftime("%H:%M %p %B %d, %Y (%Z)") %></td>
+	</tr>
+	<tr>
+		<td>Last Seen</td>
+		<td><%= @user.current_sign_in_at.in_time_zone(+5.5).strftime("%H:%M %p %B %d, %Y (%Z)") %></td>
+	</tr>
+	<tr>
+		<td>Last Seen IP</td>
+		<td><%= @user.current_sign_in_ip %></td>
+	</tr>
+	<tr>
+		<td>Visits</td>
+		<td><%= @user.sign_in_count %></td>
+	</tr>
+	</tbody>
+</table>
+
+<p>
+<% if @user == current_user %>
+	<%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' %>
+<% end %>
+</p>
