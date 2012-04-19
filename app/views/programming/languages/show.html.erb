@@ -1,5 +1,5 @@
-<h2>Programming::Languages#show</h2>
-<p>View file app/views/programming/languages/show.html.erb</p>
+<% content_for(:title, "Programming Language - #{@language.name}") %>
+<% content_for(:heading, "Programming Language - #{@language.name}") %>
 
 <p>
 	<%= link_to 'All Languages', programming_languages_path, class: 'btn' %>
