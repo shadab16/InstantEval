@@ -5,7 +5,6 @@ class ProgrammingTask < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :statement, presence: true
-	validates :input_format, presence: true
 	validates :time_limit, presence: true
 	validates :memory_limit, presence: true
 

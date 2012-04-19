@@ -74,8 +74,10 @@ class Programming::ProgramsController < ApplicationController
 							status_code_id: status,
 							log: output
 						)
+						@program.status_code_id = status unless status == codes[:ok]
 					end
 				end
+				@program.status_code_id = codes[:ok] if @program.status_code_id.nil?;
 			end
 			File.delete(out)
 		end
