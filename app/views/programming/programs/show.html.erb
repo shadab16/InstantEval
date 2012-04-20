@@ -7,15 +7,30 @@
 	<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
 </p>
 
-<p>Programming Language: <%= @program.programming_language.name %></p>
-<% if @program.status_code %>
-<p>
-	Status:
-	<strong class="label <%= status_label(@program.status_code.name) %>">
-		<%= @program.status_code.name %></strong> -
-	<%= @program.status_code.description %>
-</p>
-<% end %>
+<table class="table table-striped">
+	<tbody>
+	<tr>
+		<td>Programming Language</td>
+		<td><%= @program.programming_language.name %></td>
+	</tr>
+	<% if @program.status_code %>
+	<tr>
+		<td>Status</td>
+		<td>
+			<strong class="label <%= status_label(@program.status_code.name) %>">
+				<%= @program.status_code.name %></strong> -
+			<%= @program.status_code.description %>
+		</td>
+	</tr>
+	<% end %>
+	<% if @program.user %>
+	<tr>
+		<td>User</td>
+		<td><%= @program.user.email %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>
 
 <pre><%= @program.source_code %></pre>
 

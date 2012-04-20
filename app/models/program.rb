@@ -5,6 +5,7 @@ class Program < ActiveRecord::Base
 	validates :source_code, presence: true
 	validates :programming_task_id, presence: true
 	validates :programming_language_id, presence: true
+	validates :user_id, presence: true
 
 	belongs_to :user
 	belongs_to :programming_language

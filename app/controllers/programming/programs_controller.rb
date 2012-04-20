@@ -1,5 +1,7 @@
 class Programming::ProgramsController < ApplicationController
 
+	before_filter :authenticate_user!, except: [:show]
+
 	def show
 		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
 		@program = @task.programs.find_by_id(params[:id]) || not_found
@@ -14,6 +16,7 @@ class Programming::ProgramsController < ApplicationController
 	def create
 		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
 		@program = @task.programs.new(params[:program])
+		@program.user_id = current_user.id
 		evaluate if @program.valid?
 		if @program.save
 			flash[:success] = "Program Submitted!"
