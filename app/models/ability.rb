@@ -3,10 +3,10 @@ class Ability
 
 	def initialize(user)
 		user ||= User.new # guest user (not logged in)
-		if @user.roles.empty?
+		if user.roles.empty?
 			guest
 		else
-			@user.roles.each { |role| send(role) }
+			user.roles.each { |role| send(role) }
 		end
 	end
 
