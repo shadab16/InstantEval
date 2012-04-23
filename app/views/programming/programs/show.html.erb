@@ -3,8 +3,12 @@
 
 <p>
 	<%= link_to 'View Task', @task, class: 'btn' %>
-	<%= link_to 'New Program', new_programming_task_program_path(@task), class: 'btn' %>
-	<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
+	<% if can? :create, @program %>
+		<%= link_to 'New Program', new_programming_task_program_path(@task), class: 'btn' %>
+	<% end %>
+	<% if can? :destroy, @program %>
+		<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
+	<% end %>
 </p>
 
 <table class="table table-striped">
