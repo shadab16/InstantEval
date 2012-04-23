@@ -1,5 +1,5 @@
-<h1>Programming::Programs#show</h1>
-<p>View file app/views/programming/programs/show.html.erb</p>
+<% content_for(:title, "#{@task.name} - Show Program") %>
+<% content_for(:heading, "#{@task.name} - Show Program") %>
 
 <p>
 	<%= link_to 'View Task', @task, class: 'btn' %>
@@ -7,15 +7,56 @@
 	<%= link_to 'Delete', [@task, @program], method: :delete, class: 'btn btn-danger' %>
 </p>
 
-<h2><%= @task.name %></h2>
-<p>Programming Language: <%= @program.programming_language.name %></p>
-<% if @program.status_code %>
-<p>
-	Status:
-	<strong class="label <%= status_label(@program.status_code.name) %>">
-		<%= @program.status_code.name %></strong> -
-	<%= @program.status_code.description %>
-</p>
-<% end %>
+<table class="table table-striped">
+	<tbody>
+	<tr>
+		<td>Programming Language</td>
+		<td><%= @program.programming_language.name %></td>
+	</tr>
+	<% if @program.status_code %>
+	<tr>
+		<td>Status</td>
+		<td>
+			<strong class="label <%= status_label(@program.status_code.name) %>">
+				<%= @program.status_code.name %></strong> -
+			<%= @program.status_code.description %>
+		</td>
+	</tr>
+	<% end %>
+	<% if @program.user %>
+	<tr>
+		<td>User</td>
+		<td><%= @program.user.email %></td>
+	</tr>
+	<% end %>
+	</tbody>
+</table>
 
 <pre><%= @program.source_code %></pre>
+
+<% if @program.program_results.any? %>
+<p>Program Results</p>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Test#</th>
+			<th>Expected</th>
+			<th>Output</th>
+			<th>Result</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @program.program_results.each do |result| %>
+		<tr>
+			<td><%= result.programming_test_case_id %></td>
+			<td class="code"><%= result.programming_test_case.stdout.inspect %></td>
+			<td class="code"><%= result.log.inspect %></td>
+			<td>
+				<strong class="label <%= status_label(result.status_code.name) %>">
+					<%= result.status_code.name %></strong>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

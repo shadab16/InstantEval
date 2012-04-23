@@ -1,0 +1,46 @@
+<% content_for(:title, "Edit Account") %>
+
+<% attributes = {method: :put, class: 'form-horizontal'} %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: attributes) do |f| %>
+	<legend>Edit Account</legend>
+	<%= render 'shared/error_messages', object: f.object %>
+	<div class="control-group">
+		<%= f.label :email, class: 'control-label' %>
+		<div class="controls">
+			<%= f.email_field :email, class: 'input-xlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :password, class: 'control-label' %>
+		<div class="controls">
+			<%= f.password_field :password, class: 'input-xlarge' %>
+			<p class="help-block">
+				<em>Leave blank if you don't want to change it</em>
+			</p>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :password_confirmation, class: 'control-label' %>
+		<div class="controls">
+			<%= f.password_field :password_confirmation, class: 'input-xlarge' %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :current_password, class: 'control-label' %>
+		<div class="controls">
+			<%= f.password_field :current_password, class: 'input-xlarge' %>
+			<p class="help-block">
+				<em>We need your current password to confirm your changes</em>
+			</p>
+		</div>
+	</div>
+	<div class="form-actions">
+		<%= f.submit "Update", class: 'btn btn-primary' %>
+	</div>
+<% end %>
+
+<h3>Delete my account</h3>
+<p>
+	Unhappy?
+	<%= link_to "Delete my account", registration_path(resource_name), confirm: "Are you sure?", method: :delete %>.
+</p>

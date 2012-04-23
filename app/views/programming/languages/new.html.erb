@@ -1,16 +1,15 @@
-<h1>Programming::Languages#new</h1>
-<p>View file app/views/programming/languages/new.html.erb</p>
+<% content_for(:title, "New Programming Language") %>
+<% content_for(:heading, "New Programming Language") %>
 
 <p>
 	<%= link_to 'All Languages', programming_languages_path, class: 'btn' %>
 	<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
 </p>
 
-<div class="row">
-	<div class="span8 offset2">
-		<%= form_for(@language) do |form| %>
-			<%= render 'form', f: form %>
-			<%= form.submit "Create Language", class: 'btn btn-primary' %>
-		<% end %>
+<%= form_for(@language, html: {class: 'form-horizontal'}) do |form| %>
+	<legend>Programming Language</legend>
+	<%= render 'form', f: form %>
+	<div class="form-actions">
+		<%= form.submit "Create Language", class: 'btn btn-primary' %>
 	</div>
-</div>
+<% end %>

@@ -9,13 +9,24 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
-		<% end %>
-		<%= yield %>
-	</div>
-	<div class="container">
-		<%= debug(params) if Rails.env.development? %>
+		<div class="row">
+			<div class="span2">
+				<h1 class="brand">InstantEval</h1>
+				<p><em>
+					A system for real-time evaluation of small application programs.
+				</em></p>
+			</div>
+				<div class="span10">
+				<% flash.each do |key, value| %>
+					<div class="alert alert-<%= key %>"><%= value %></div>
+				<% end %>
+				<% if content_for?(:heading) %>
+					<h2><%= yield(:heading) %></h2>
+				<% end %>
+				<%= yield %>
+				<%= debug(params) if Rails.env.development? %>
+			</div>
+		</div>
 	</div>
 	<%= render 'layouts/footer' %>
 </body>

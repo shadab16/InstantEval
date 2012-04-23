@@ -1,21 +1,10 @@
 class User < ActiveRecord::Base
 
-	attr_accessible :name, :email, :password, :password_confirmation
+	devise :database_authenticatable, :registerable,
+		   :recoverable, :rememberable, :trackable, :validatable
 
-	validates :name,
-			  presence: true,
-			  length: {minimum: 5, maximum: 30},
-			  uniqueness: {case_sensitive: false}
+	# Other available modules are: :token_authenticatable, :encryptable,
+	# :confirmable, :lockable, :timeoutable and :omniauthable
 
-	validates :email,
-			  presence: true,
-			  length: {minimum: 3, maximum: 254},
-			  uniqueness: {case_sensitive: false}
-
-	validates :password, presence: true, minimum: {length: 8}
-	validates :password_confirmation, presence: true
-
-	has_secure_password
-
-	has_many :programs, dependent: :destroy, inverse_of: :user
+	attr_accessible :email, :password, :password_confirmation, :remember_me
 end
