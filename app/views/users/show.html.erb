@@ -27,6 +27,10 @@
 		<td>Visits</td>
 		<td><%= @user.sign_in_count %></td>
 	</tr>
+	<tr>
+		<td><%= link_to 'Roles', edit_user_path(@user) %></td>
+		<td><%= @user.roles.collect { |role| role.humanize }.join(", ") %></td>
+	</tr>
 	</tbody>
 </table>
 

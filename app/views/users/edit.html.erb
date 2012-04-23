@@ -1,0 +1,22 @@
+<% content_for(:title, "Edit User - #{@user.email}") %>
+<% content_for(:heading, "Edit User - #{@user.email}") %>
+
+<p>
+	<%= link_to 'View Profile', user_path(@user), class: 'btn' %>
+</p>
+
+<%= form_for(@user, html: {class: 'form-horizontal'}) do |form| %>
+	<legend>User Roles</legend>
+	<div class="control-group">
+		<div class="controls">
+			<% User::ROLES.each_with_index do |role, i| %>
+				<%= check_box_tag "user[roles][]", role, @user.roles.include?(role), class: 'pull-left', id: "user_roles_#{i}" %>
+				<%= label_tag "user[roles][#{i}]", role.humanize, class: 'checkbox' %>
+			<% end %>
+			<%= hidden_field_tag "user[roles][]", "" %>
+		</div>
+	</div>
+	<div class="form-actions">
+		<%= form.submit "Update Roles", class: 'btn btn-primary' %>
+	</div>
+<% end %>
