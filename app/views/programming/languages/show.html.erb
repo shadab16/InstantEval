@@ -3,9 +3,15 @@
 
 <p>
 	<%= link_to 'All Languages', programming_languages_path, class: 'btn' %>
-	<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
-	<%= link_to 'Edit Language', edit_programming_language_path(@language), class: 'btn' %>
-	<%= link_to 'Delete', @language, method: :delete, class: 'btn btn-danger' %>
+	<% if can? :create, ProgrammingLanguage %>
+		<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
+	<% end %>
+	<% if can? :edit, @language %>
+		<%= link_to 'Edit Language', edit_programming_language_path(@language), class: 'btn' %>
+	<% end %>
+	<% if can? :destroy, @language %>
+		<%= link_to 'Delete', @language, method: :delete, class: 'btn btn-danger' %>
+	<% end %>
 </p>
 
 <h3><%= @language.name %></h3>

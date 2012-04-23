@@ -2,7 +2,9 @@
 <% content_for(:heading, "Programming Languages") %>
 
 <p>
-	<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
+	<% if can? :create, ProgrammingLanguage %>
+		<%= link_to 'New Language', new_programming_language_path, class: 'btn' %>
+	<% end %>
 </p>
 
 <ul>
