@@ -24,7 +24,7 @@ class Ability
 
 	def member
 		can :read, :all
-		can :manage, Program
+		can :create, Program
 	end
 
 	def guest

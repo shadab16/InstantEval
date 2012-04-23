@@ -2,6 +2,7 @@ class Programming::TasksController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:index, :show]
 	before_filter :fix_params, only: [:new, :create, :update]
+	authorize_resource class: ProgrammingTask
 
 	def index
 		@tasks = ProgrammingTask.all

@@ -1,6 +1,7 @@
 class Programming::LanguagesController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:index, :show]
+	authorize_resource class: ProgrammingLanguage
 
 	def index
 		@languages = ProgrammingLanguage.all

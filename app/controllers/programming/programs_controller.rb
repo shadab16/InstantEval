@@ -1,6 +1,7 @@
 class Programming::ProgramsController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:show]
+	authorize_resource class: Program
 
 	def show
 		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
