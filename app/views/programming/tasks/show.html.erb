@@ -12,7 +12,7 @@
 	<% if can? :destroy, @task %>
 		<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
 	<% end %>
-	<% if can? :create, @task.programs.new %>
+	<% if can? :create, Program %>
 		<%= link_to 'Submit Program', new_programming_task_program_path(@task), class: 'btn' %>
 	<% end %>
 </p>
