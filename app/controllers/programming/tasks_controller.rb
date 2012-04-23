@@ -2,18 +2,16 @@ class Programming::TasksController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:index, :show]
 	before_filter :fix_params, only: [:new, :create, :update]
-	authorize_resource class: ProgrammingTask
+	load_and_authorize_resource :task, class: ProgrammingTask
 
 	def index
 		@tasks = ProgrammingTask.all
 	end
 
 	def show
-		@task = ProgrammingTask.find_by_id(params[:id]) || not_found
 	end
 
 	def new
-		@task = ProgrammingTask.new
 		@task.programming_test_cases.build
 		@languages = ProgrammingLanguage.available
 	end
@@ -31,13 +29,11 @@ class Programming::TasksController < ApplicationController
 	end
 
 	def edit
-		@task = ProgrammingTask.find_by_id(params[:id]) || not_found
 		@task.programming_test_cases.build
 		@languages = ProgrammingLanguage.available
 	end
 
 	def update
-		@task = ProgrammingTask.find_by_id(params[:id]) || not_found
 		if @task.update_attributes(params[:programming_task])
 			flash[:success] = "Programming Task Updated!"
 			redirect_to @task
@@ -49,7 +45,6 @@ class Programming::TasksController < ApplicationController
 	end
 
 	def destroy
-		@task = ProgrammingTask.find_by_id(params[:id]) || not_found
 		@task.destroy
 		flash[:success] = "Programming Task Destroyed!"
 		redirect_to programming_tasks_path
