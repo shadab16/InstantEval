@@ -1,22 +1,17 @@
 class Programming::ProgramsController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:show]
-	authorize_resource class: Program
+	load_and_authorize_resource :task, class: ProgrammingTask
+	load_and_authorize_resource :program, class: Program, through: :task
 
 	def show
-		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
-		@program = @task.programs.find_by_id(params[:id]) || not_found
 	end
 
 	def new
-		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
-		@program = @task.programs.new
 		@languages = @task.programming_languages.available
 	end
 
 	def create
-		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
-		@program = @task.programs.new(params[:program])
 		@program.user_id = current_user.id
 		evaluate if @program.valid?
 		if @program.save
@@ -29,8 +24,6 @@ class Programming::ProgramsController < ApplicationController
 	end
 
 	def destroy
-		@task = ProgrammingTask.find_by_id(params[:task_id]) || not_found
-		@program = @task.programs.find_by_id(params[:id]) || not_found
 		@program.destroy
 		flash[:success] = "Program Submission Destroyed!"
 		redirect_to @task
