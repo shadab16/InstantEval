@@ -3,7 +3,9 @@
 
 <p>
 	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
-	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% if can? :create, ProgrammingTask %>
+		<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% end %>
 </p>
 
 <%= form_for(@task, html: {class: 'form-horizontal'}) do |form| %>

@@ -3,10 +3,18 @@
 
 <p>
 	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
-	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
-	<%= link_to 'Edit Task', edit_programming_task_path(@task), class: 'btn' %>
-	<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
-	<%= link_to 'Submit Program', new_programming_task_program_path(@task), class: 'btn' %>
+	<% if can? :create, ProgrammingTask %>
+		<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% end %>
+	<% if can? :edit, @task %>
+		<%= link_to 'Edit Task', edit_programming_task_path(@task), class: 'btn' %>
+	<% end %>
+	<% if can? :destroy, @task %>
+		<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
+	<% end %>
+	<% if can? :create, @task.programs.new %>
+		<%= link_to 'Submit Program', new_programming_task_program_path(@task), class: 'btn' %>
+	<% end %>
 </p>
 
 <h3><%= @task.name %></h3>

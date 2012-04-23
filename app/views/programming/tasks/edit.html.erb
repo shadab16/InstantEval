@@ -3,9 +3,13 @@
 
 <p>
 	<%= link_to 'All Tasks', programming_tasks_path, class: 'btn' %>
-	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% if can? :create, ProgrammingTask %>
+		<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% end %>
 	<%= link_to 'View Task', @task, class: 'btn' %>
-	<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
+	<% if can? :destroy, @task %>
+		<%= link_to 'Delete', @task, method: :delete, class: 'btn btn-danger' %>
+	<% end %>
 </p>
 
 <%= form_for(@task, html: {class: 'form-horizontal'}) do |form| %>

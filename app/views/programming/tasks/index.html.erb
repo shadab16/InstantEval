@@ -2,7 +2,9 @@
 <% content_for(:heading, "Programming Tasks") %>
 
 <p>
-	<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% if can? :create, ProgrammingTask %>
+		<%= link_to 'New Task', new_programming_task_path, class: 'btn' %>
+	<% end %>
 </p>
 
 <ul>
