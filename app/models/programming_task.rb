@@ -5,8 +5,8 @@ class ProgrammingTask < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :statement, presence: true
-	validates :time_limit, presence: true
-	validates :memory_limit, presence: true
+	validates :time_limit, presence: true, numericality: {greater_than: 0}
+	validates :memory_limit, presence: true, numericality: {greater_than: 0}
 
 	validates :programming_language_ids, presence: true
 	validates :programming_test_cases, presence: true

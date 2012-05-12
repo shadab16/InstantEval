@@ -91,6 +91,11 @@ input, textarea, select, .uneditable-input {
 	padding: 0.5em;
 }
 
+.input-prepend .add-on, .input-append .add-on {
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
 #error_explanation {
 	color: $errorText;
 	ul {
