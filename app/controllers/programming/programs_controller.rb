@@ -43,6 +43,7 @@ class Programming::ProgramsController < ApplicationController
 			1 => 'gcc -x c -O2 -o %s %s',
 			2 => 'g++ -x c++ -O2 -o %s %s'
 		}
+		tcmd = "#{Rails.root.join('script/timeout/timeout')} -t %s -m %s"
 		return unless [1, 2].include?(lang)
 		Tempfile.open('src', Rails.root.join('tmp')) do |file|
 			file.write(@program.source_code)
@@ -54,18 +55,42 @@ class Programming::ProgramsController < ApplicationController
 					@program.status_code_id = codes[:compile]
 					next
 				end
-				testcases = @program.programming_task.programming_test_cases
+				task = @program.programming_task
+				timelimit = task.time_limit
+				memlimit = task.memory_limit.megabytes / 1.kilobyte
+				timeout = tcmd % [timelimit, memlimit]
+				testcases = task.programming_test_cases
 				testcases.each do |testcase|
-					Open3.popen2e(out) do |stdin, stdout, thread|
+					Open3.popen3("#{timeout} #{out}") do |stdin, stdout, stderr, thread|
 						stdin.write testcase.stdin
 						stdin.flush
 						stdin.close_write
 						exit_code = thread.value
 						output = stdout.read.gsub(/\r\n?/, "\n").strip
 						expected = testcase.stdout
-						status = codes[:ok] if output == expected
-						status = codes[:fail] if output != expected
-						status = codes[:exit] unless exit_code.success?
+						err = stderr.read
+						status = nil
+						err.split("\n").reverse.each do |line|
+							next if line[0] == "<"
+							case line.split.first
+							when "TIMEOUT"
+								status = codes[:cpu]
+							when "HANGUP"
+								status = codes[:hang]
+							when "MEM"
+								status = codes[:mem]
+							when "SIGNAL"
+								status = codes[:sig]
+							end
+							break
+						end
+						if status.nil?
+							status = codes[:ok] if output == expected
+							status = codes[:fail] if output != expected
+							status = codes[:exit] unless exit_code.success?
+						else
+							output = ""
+						end
 						@program.program_results.new(
 							programming_test_case_id: testcase.id,
 							status_code_id: status,
