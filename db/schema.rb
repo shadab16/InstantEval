@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120422110811) do
+ActiveRecord::Schema.define(:version => 20130428131122) do
 
   create_table "program_results", :force => true do |t|
     t.integer  "program_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120422110811) do
     t.integer  "time_limit"
     t.integer  "memory_limit"
     t.string   "name"
+    t.datetime "deadline"
   end
 
   create_table "programming_test_cases", :force => true do |t|

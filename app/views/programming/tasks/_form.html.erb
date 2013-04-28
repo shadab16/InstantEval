@@ -37,6 +37,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="control-group">
+		<%= f.label :deadline, class: 'control-label' %>
+		<div class="controls">
+			<div class="input">
+				<%= f.datetime_select :deadline, discard_hour: true %>
+			</div>
+		</div>
+	</div>
 </fieldset>
 
 <fieldset>

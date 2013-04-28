@@ -1,6 +1,6 @@
 class ProgrammingTask < ActiveRecord::Base
 
-	attr_accessible :name, :statement, :input_format, :time_limit, :memory_limit,
+	attr_accessible :name, :statement, :input_format, :time_limit, :memory_limit, :deadline,
 					:programming_language_ids, :programming_test_cases_attributes
 
 	validates :name, presence: true
@@ -10,6 +10,8 @@ class ProgrammingTask < ActiveRecord::Base
 
 	validates :programming_language_ids, presence: true
 	validates :programming_test_cases, presence: true
+
+	validate :deadline_in_future
 
 	has_and_belongs_to_many :programming_languages, uniq: true, readonly: true
 	has_many :programs, dependent: :destroy
@@ -23,6 +25,13 @@ class ProgrammingTask < ActiveRecord::Base
 	def mark_test_cases_for_removal
 		programming_test_cases.each do |testcase|
 			testcase.mark_for_destruction if testcase.stdin.blank? and testcase.stdout.blank?
+		end
+	end
+
+	private
+	def deadline_in_future
+		if !deadline.blank? and deadline.past?
+			errors.add(:deadline, "can't be in the past")
 		end
 	end
 

@@ -7,6 +7,8 @@ class Program < ActiveRecord::Base
 	validates :programming_language_id, presence: true
 	validates :user_id, presence: true
 
+	validate :submission_is_before_deadline
+
 	belongs_to :user
 	belongs_to :programming_language
 	belongs_to :programming_task
@@ -14,5 +16,12 @@ class Program < ActiveRecord::Base
 	has_many :program_results, dependent: :destroy
 
 	accepts_nested_attributes_for :program_results
+
+	private
+	def submission_is_before_deadline
+		if programming_task.deadline.present? and Time.now > programming_task.deadline
+			errors.add(:source_code, 'submission deadline is over')
+		end
+	end
 
 end
