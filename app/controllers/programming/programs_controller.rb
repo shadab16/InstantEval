@@ -1,3 +1,5 @@
+require 'open3'
+
 class Programming::ProgramsController < ApplicationController
 
 	before_filter :authenticate_user!, except: [:show]
@@ -41,10 +43,11 @@ class Programming::ProgramsController < ApplicationController
 		lang = @program.programming_language_id
 		cmd = {
 			1 => 'gcc -x c -O2 -o %s %s',
-			2 => 'g++ -x c++ -O2 -o %s %s'
+			2 => 'g++ -x c++ -O2 -o %s %s',
+			3 => 'ghc -x hs -O2 -o %s %s'
 		}
 		tcmd = "#{Rails.root.join('script/timeout/timeout')} -t %s -m %s"
-		return unless [1, 2].include?(lang)
+		return unless [1, 2, 3].include?(lang)
 		Tempfile.open('src', Rails.root.join('tmp')) do |file|
 			file.write(@program.source_code)
 			file.flush
