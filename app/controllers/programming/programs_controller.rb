@@ -40,19 +40,15 @@ class Programming::ProgramsController < ApplicationController
 		# :mem, :cpu, :hang, :sig, :ok, :exit, :compile, :fail
 		codes = {}
 		StatusCode.all.each { |c| codes[c.name.downcase.to_sym] = c.id }
-		lang = @program.programming_language_id
-		cmd = {
-			1 => 'gcc -x c -O2 -o %s %s',
-			2 => 'g++ -x c++ -O2 -o %s %s',
-			3 => 'ghc -x hs -O2 -o %s %s'
-		}
+		language = @program.programming_language
+		compiler = language.compiler
+		execution = language.execution
 		tcmd = "#{Rails.root.join('script/timeout/timeout')} -t %s -m %s"
-		return unless [1, 2, 3].include?(lang)
 		Tempfile.open('src', Rails.root.join('tmp')) do |file|
 			file.write(@program.source_code)
 			file.flush
-			out = File.dirname(file.path) + '/test'
-			Open3.popen2e(cmd[lang] % [out, file.path]) do |_, _, thread|
+			outfile = File.dirname(file.path) + '/test'
+			Open3.popen2e(compiler % {out: outfile, in: file.path}) do |_, _, thread|
 				exit_code = thread.value
 				unless exit_code.success?
 					@program.status_code_id = codes[:compile]
@@ -64,7 +60,8 @@ class Programming::ProgramsController < ApplicationController
 				timeout = tcmd % [timelimit, memlimit]
 				testcases = task.programming_test_cases
 				testcases.each do |testcase|
-					Open3.popen3("#{timeout} #{out}") do |stdin, stdout, stderr, thread|
+					execution = execution % {file: outfile}
+					Open3.popen3("#{timeout} #{execution}") do |stdin, stdout, stderr, thread|
 						stdin.write testcase.stdin
 						stdin.flush
 						stdin.close_write
@@ -104,7 +101,7 @@ class Programming::ProgramsController < ApplicationController
 				end
 				@program.status_code_id = codes[:ok] if @program.status_code_id.nil?
 			end
-			File.delete(out) if File.exist?(out)
+			File.delete(outfile) if File.exist?(outfile)
 		end
 	end
 
