@@ -16,6 +16,12 @@
 
 <h3><%= @language.name %></h3>
 <p>
+	Compiler Command: <code><%= @language.compiler %></code>
+</p>
+<p>
+	Execution Command: <code><%= @language.execution %></code>
+</p>
+<p>
 	Available for submissions?
 	<strong><%= @language.available?.to_s.capitalize %></strong>
 </p>

@@ -1,6 +1,6 @@
 class ProgrammingLanguage < ActiveRecord::Base
 
-	attr_accessible :name, :available
+	attr_accessible :name, :available, :compiler, :execution
 
 	validates :name,
 			  presence: true,
