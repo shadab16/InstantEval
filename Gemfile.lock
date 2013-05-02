@@ -30,7 +30,8 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.0.4.2)
+    bootstrap-sass (2.3.1.0)
+      sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.9)
     coffee-rails (3.2.2)
@@ -105,7 +106,7 @@ GEM
       libv8 (~> 3.11.8.12)
       ref
     thor (0.18.1)
-    tilt (1.3.7)
+    tilt (1.4.0)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -121,13 +122,13 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
-  bootstrap-sass (~> 2.0.1)
+  bootstrap-sass (~> 2.3.1.0)
   cancan
   coffee-rails (~> 3.2.1)
   devise
   jquery-rails
   rails (~> 3.2.1)
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2)
   sqlite3
   therubyracer
   uglifier (>= 1.0.3)
