@@ -1,4 +1,67 @@
+$sansFontFamily: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serifFontFamily: 'Gentium Basic', Georgia, 'Times New Roman', Times, serif;
+$linkColor: #88382D;
+$headingsFontFamily: $serifFontFamily;
+$headingsColor: #A84A5C;
+$navbarHeight: 70px;
+
 @import "bootstrap";
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'), font-url('OpenSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Open Sans Bold'), local('OpenSans-Bold'), font-url('OpenSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 400;
+	src: local('Open Sans Italic'), local('OpenSans-Italic'), font-url('OpenSans-Italic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: italic;
+	font-weight: 700;
+	src: local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), font-url('OpenSans-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Gentium Basic';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Gentium Basic'), local('GentiumBasic'), font-url('GenBasR.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Gentium Basic';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Gentium Basic Bold'), local('GentiumBasic-Bold'), font-url('GenBasB.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Gentium Basic';
+	font-style: italic;
+	font-weight: 400;
+	src: local('Gentium Basic Italic'), local('GentiumBasic-Italic'), font-url('GenBasI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Gentium Basic';
+	font-style: italic;
+	font-weight: 700;
+	src: local('Gentium Basic Bold Italic'), local('GentiumBasic-BoldItalic'), font-url('GenBasBI.ttf') format('truetype');
+}
 
 @mixin box_sizing {
 	-moz-box-sizing: border-box;
@@ -6,28 +69,35 @@
 	box-sizing: border-box;
 }
 
-/* Font-Families */
-
-@font-face {
-	font-family: 'Lobster13Regular';
-	src: font-url('Lobster_1.3-webfont.eot');
-	src: font-url('Lobster_1.3-webfont.eot?#iefix') format('embedded-opentype'),
-	     font-url('Lobster_1.3-webfont.ttf') format('truetype'),
-	     font-url('Lobster_1.3-webfont.svg#Lobster13Regular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
 /* Headings */
 
-h1 {
-	font-family: 'Lobster13Regular', serif;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+.navbar .brand {
+	color: #AD7460;
+	background-color: lighten(#F9E3CB, 7%);
 }
 
 /* Navbar */
 
 .navbar-inner {
+	border: none;
 	@include border-radius(0);
+	background-image: none;
+	box-shadow: 0 1px 5px rgba(34, 25, 25, 0.6);
+}
+
+.navbar .span12 {
+	float: none;
+	margin: auto;
+}
+
+.navbar .nav > li > a {
+	text-transform: uppercase;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 /* Footer */
@@ -67,6 +137,10 @@ h1 {
 }
 
 /* general */
+
+body {
+	background: white url('fabric.png') top left repeat;
+}
 
 .debug_dump {
 	margin-top: 1em;
