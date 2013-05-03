@@ -77,7 +77,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar .brand {
 	color: #AD7460;
-	background-color: lighten(#F9E3CB, 7%);
+	text-transform: uppercase;
+	font-family: $serifFontFamily;
 }
 
 /* Navbar */

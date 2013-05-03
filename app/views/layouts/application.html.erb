@@ -9,18 +9,14 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<% flash.each do |key, value| %>
-					<div class="alert alert-<%= key %>"><%= value %></div>
-				<% end %>
-				<% if content_for?(:heading) %>
-					<h2><%= yield(:heading) %></h2>
-				<% end %>
-				<%= yield %>
-				<%= debug(params) if Rails.env.development? %>
-			</div>
-		</div>
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>"><%= value %></div>
+		<% end %>
+		<% if content_for?(:heading) %>
+			<h2><%= yield(:heading) %></h2>
+		<% end %>
+		<%= yield %>
+		<%= debug(params) if Rails.env.development? %>
 	</div>
 	<%= render 'layouts/footer' %>
 </body>
