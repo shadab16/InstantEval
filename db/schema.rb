@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430000801) do
+ActiveRecord::Schema.define(:version => 20130503004622) do
 
   create_table "program_results", :force => true do |t|
     t.integer  "program_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130430000801) do
     t.datetime "updated_at", :null => false
     t.string   "compiler"
     t.string   "execution"
+    t.string   "icon"
   end
 
   add_index "programming_languages", ["name"], :name => "index_programming_languages_on_name", :unique => true

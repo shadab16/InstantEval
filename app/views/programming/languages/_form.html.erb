@@ -19,6 +19,12 @@
 	</div>
 </div>
 <div class="control-group">
+	<%= f.label :icon, 'Icon File Path', class: 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :icon, class: 'input-xlarge' %>
+	</div>
+</div>
+<div class="control-group">
 	<div class="controls">
 		<%= f.check_box :available, class: 'pull-left' %>
 		<%= f.label :available, class: 'checkbox' %>
