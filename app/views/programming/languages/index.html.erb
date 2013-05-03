@@ -1,5 +1,5 @@
-<% content_for(:title, "Programming Languages") %>
-<% content_for(:heading, "Programming Languages") %>
+<% content_for(:title, 'Programming Languages') %>
+<% content_for(:heading, 'Programming Languages') %>
 
 <p>
 	<% if can? :create, ProgrammingLanguage %>
@@ -7,8 +7,29 @@
 	<% end %>
 </p>
 
-<ul>
-<% @languages.each do |lang| %>
-	<li><%= link_to lang.name, lang %></li>
-<% end %>
-</ul>
+<div class="well">
+	<table class="table">
+	<thead>
+		<tr>
+			<th width="50px">&nbsp;</th>
+			<th>Programming Language Name</th>
+			<th>Available for Submissions</th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @languages.each do |lang| %>
+		<tr>
+			<td><img src="<%= image_path(lang.icon) %>" alt="<%= lang.name %>" style="height: 20px" /></td>
+			<td><%= link_to lang.name, lang %></td>
+			<td>
+				<% if lang.available %>
+					<span class="badge badge-success">✔</span>
+				<% else %>
+					<span class="badge badge-important">✘</span>
+				<% end %>
+			</td>
+		</tr>
+	<% end %>
+	</tbody>
+	</table>
+</div>
