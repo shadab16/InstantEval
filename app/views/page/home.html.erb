@@ -1,18 +1,72 @@
 <div class="row">
-	<div class="span5">
-		<h2>Dynamic Stuff</h2>
-		<p> </p>
-		<ul>
-			<li><%= link_to 'Programming Languages', programming_languages_path %></li>
-			<li><%= link_to 'Programming Tasks', programming_tasks_path %></li>
-		</ul>
+	<div id="homeCarousel" class="carousel slide">
+		<ol class="carousel-indicators">
+			<li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#homeCarousel" data-slide-to="1"></li>
+			<li data-target="#homeCarousel" data-slide-to="2"></li>
+		</ol>
+		<!-- Carousel items -->
+		<div class="carousel-inner">
+			<div class="active item">
+				<div class="row">
+					<h2>Programming Tasks</h2>
+					<table class="table">
+					<% @tasks.each do |task| %>
+					<tr>
+						<td><%= link_to task.name, task %></td>
+						<td><%= pluralize(task.programs.count, 'submission') %></td>
+						<td>
+							<% if task.deadline.blank? %>
+								No Deadline
+							<% else %>
+								<%= l task.deadline.to_date %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+					</table>
+				</div>
+			</div>
+			<div class="item">
+				<div class="row">
+					<h2>Assignments</h2>
+					<p>Subjective Assignment 1</p>
+					<p>Subjective Assignment 2</p>
+					<p>Subjective Assignment 3</p>
+					<p>Subjective Assignment 4</p>
+					<p>Subjective Assignment 5</p>
+				</div>
+			</div>
+			<div class="item">
+				<div class="row">
+					<h2>Leaderboard</h2>
+					<p>Lorem ipsum dolor sit amet</p>
+					<p>Lorem ipsum dolor sit amet</p>
+					<p>Lorem ipsum dolor sit amet</p>
+					<p>Lorem ipsum dolor sit amet</p>
+					<p>Lorem ipsum dolor sit amet</p>
+				</div>
+			</div>
+		</div>
+		<!-- Carousel nav -->
+		<a class="carousel-control left" href="#homeCarousel" data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#homeCarousel" data-slide="next">&rsaquo;</a>
 	</div>
-	<div class="span5">
-		<h2>Static Stuff</h2>
-		<p> </p>
-		<ul>
-			<li><%= link_to 'About Page', page_about_path %></li>
-			<li><%= link_to 'Contact Page', page_contact_path %></li>
-		</ul>
-	</div>
+</div>
+
+<div class="row">
+	<h2>Popular Tags</h2>
+</div>
+
+<div class="row">
+	<h2>Programming Languages</h2>
+	<ul class="icons">
+		<% @languages.each do |language| %>
+		<li>
+			<a href="<%= url_for(language) %>" title="<%= language.name %>">
+				<img src="<%= image_path(language.icon) %>" class="img-polaroid" alt="<%= language.name %>" />
+			</a>
+		</li>
+		<% end %>
+	</ul>
 </div>

@@ -1,3 +1,28 @@
-// Place all the styles related to the Page controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#homeCarousel {
+	border-bottom: 1px solid #666;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+#homeCarousel .row {
+	margin: 0 80px;
+}
+
+#homeCarousel h2 {
+	text-align: center;
+}
+
+ul.icons {
+	list-style: none;
+}
+
+ul.icons li {
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+ul.icons img {
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 60px;
+	border-radius: 5px;
+}
