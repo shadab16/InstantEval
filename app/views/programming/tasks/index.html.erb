@@ -1,5 +1,5 @@
-<% content_for(:title, "Programming Tasks") %>
-<% content_for(:heading, "Programming Tasks") %>
+<% content_for(:title, 'Programming Tasks') %>
+<% content_for(:heading, 'Programming Tasks') %>
 
 <p>
 	<% if can? :create, ProgrammingTask %>
@@ -7,8 +7,38 @@
 	<% end %>
 </p>
 
-<ul>
-<% @tasks.each do |task| %>
-	<li><%= link_to task.name, task %></li>
-<% end %>
-</ul>
+<div class="well">
+	<table class="table">
+	<thead>
+		<tr>
+			<th>Programming Task Name</th>
+			<th>Deadline</th>
+			<th>Available Programming Languages</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tasks.each do |task| %>
+		<tr>
+			<td><%= link_to task.name, task %></td>
+			<td>
+				<% if task.deadline.blank? %>
+					<span class="label label-info">No Deadline</span>
+				<% elsif task.deadline < Time.zone.now %>
+					<span class="label"><%= l task.deadline.to_date %></span>
+				<% elsif task.deadline - Time.zone.now < 1.day %>
+					<span class="label label-important"><%= l task.deadline.to_date %></span>
+				<% else %>
+					<span class="label label-warning"><%= l task.deadline.to_date %></span>
+				<% end %>
+			</td>
+			<td>
+				<% task.programming_languages.find_each do |lang| %>
+					<img src="<%= image_path(lang.icon) %>" alt="<%= lang.name %>" title="<%= lang.name %>"
+						 class="img-polaroid" style="height: 15px" />
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+	</table>
+</div>
