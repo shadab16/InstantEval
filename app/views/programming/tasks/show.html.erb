@@ -26,10 +26,26 @@
 			<%= simple_format @task.statement %>
 		</div>
 		<p><strong>Resource Limits:</strong></p>
-		<ul>
-			<li>Memory: <%= @task.memory_limit %> megabytes</li>
-			<li>Time: <%= @task.time_limit %> seconds</li>
-		</ul>
+		<table class="table">
+			<tr>
+				<td>Memory:</td>
+				<td width="60%">
+					<div class="progress progress-striped" style="margin: 0">
+						<div class="bar" style="width: <%= @task.memory_limit / 10.0 %>%"></div>
+					</div>
+				</td>
+				<td><%= @task.memory_limit %> megabyte</td>
+			</tr>
+			<tr>
+				<td>Time:</td>
+				<td>
+					<div class="progress progress-striped" style="margin: 0">
+						<div class="bar" style="width: <%= @task.time_limit * 1.66 %>%"></div>
+					</div>
+				</td>
+				<td><%= @task.time_limit %> second</td>
+			</tr>
+		</table>
 		<p><strong>Available Languages:</strong></p>
 		<ul class="icons icons-mini">
 			<% @task.programming_languages.each do |language| %>
@@ -49,14 +65,14 @@
 			<table class="table">
 			<thead>
 				<tr>
-					<th>User</th>
+					<th>Solution</th>
 					<th>Language</th>
 				</tr>
 			</thead>
 			<tbody>
 			<% @task.programs.each do |program| %>
 			<tr>
-				<td><%= link_to program.user.email, [@task, program] %></td>
+				<td><%= link_to "Submission #{program.id}", [@task, program] %></td>
 				<td><%= link_to program.programming_language.name, program.programming_language %></td>
 			</tr>
 			<% end %>
