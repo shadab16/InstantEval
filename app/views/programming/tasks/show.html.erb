@@ -20,43 +20,64 @@
 <h3><%= @task.name %></h3>
 
 <div class="row">
-	<div class="span6">
+	<div class="span8">
 		<p><strong>Problem Statement:</strong></p>
-		<ul>
-			<li><%= simple_format @task.statement %></li>
-		</ul>
-		<p><strong>Code Format:</strong></p>
-		<ul>
-			<li><%= @task.input_format %></li>
-		</ul>
+		<div class="well">
+			<%= simple_format @task.statement %>
+		</div>
 		<p><strong>Resource Limits:</strong></p>
 		<ul>
-			<li>Memory: <%= @task.memory_limit %> bytes</li>
+			<li>Memory: <%= @task.memory_limit %> megabytes</li>
 			<li>Time: <%= @task.time_limit %> seconds</li>
 		</ul>
 		<p><strong>Available Languages:</strong></p>
-		<ul>
-		<% @task.programming_languages.each do |lang| %>
-			<li><%= link_to lang.name, lang %></li>
-		<% end %>
+		<ul class="icons icons-mini">
+			<% @task.programming_languages.each do |language| %>
+			<li>
+				<a href="<%= url_for(language) %>" title="<%= language.name %>">
+					<img src="<%= image_path(language.icon) %>" class="img-polaroid" alt="<%= language.name %>" />
+				</a>
+			</li>
+			<% end %>
 		</ul>
+
 	</div>
 	<div class="span4">
 		<p><strong>Program Submissions:</strong></p>
-		<% @task.programs.each do |program| %>
-		<ul>
-			<li><%= link_to program, [@task, program] %></li>
-		</ul>
-		<% end %>
+		<div class="well">
+			<% if @task.programs.count > 0 %>
+			<table class="table">
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>Language</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @task.programs.each do |program| %>
+			<tr>
+				<td><%= link_to program.user.email, [@task, program] %></td>
+				<td><%= link_to program.programming_language.name, program.programming_language %></td>
+			</tr>
+			<% end %>
+			</tbody>
+			</table>
+			<% else %>
+				No solutions have been submitted. Be the first one to submit!
+			<% end %>
+		</div>
 	</div>
 </div>
+
+<h4>Test Cases</h4>
+
 <% @task.programming_test_cases.each do |testcase| %>
 <div class="row">
-	<div class="span5">
+	<div class="span6">
 		<p><strong>Test Case Input:</strong></p>
 		<pre><%= testcase.stdin %></pre>
 	</div>
-	<div class="span5">
+	<div class="span6">
 		<p><strong>Expected Output:</strong></p>
 		<pre><%= testcase.stdout %></pre>
 	</div>
