@@ -30,21 +30,20 @@
 			<div class="item">
 				<div class="row">
 					<h2>Assignments</h2>
-					<p>Subjective Assignment 1</p>
-					<p>Subjective Assignment 2</p>
-					<p>Subjective Assignment 3</p>
-					<p>Subjective Assignment 4</p>
-					<p>Subjective Assignment 5</p>
+					<p>None</p>
 				</div>
 			</div>
 			<div class="item">
 				<div class="row">
 					<h2>Leaderboard</h2>
-					<p>Lorem ipsum dolor sit amet</p>
-					<p>Lorem ipsum dolor sit amet</p>
-					<p>Lorem ipsum dolor sit amet</p>
-					<p>Lorem ipsum dolor sit amet</p>
-					<p>Lorem ipsum dolor sit amet</p>
+					<table class="table">
+					<% @leaders.each do |user| %>
+					<tr>
+						<td><%= link_to user.email, user %></td>
+						<td><%= pluralize(user.submissions, 'submission') %></td>
+					</tr>
+					<% end %>
+					</table>
 				</div>
 			</div>
 		</div>
