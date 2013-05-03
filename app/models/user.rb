@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+	before_save :assign_default_role
+
 	devise :database_authenticatable, :registerable,
 		   :recoverable, :rememberable, :trackable, :validatable
 
@@ -7,6 +9,9 @@ class User < ActiveRecord::Base
 	# :confirmable, :lockable, :timeoutable and :omniauthable
 
 	attr_accessible :email, :password, :password_confirmation, :remember_me
+
+	has_many :programs, readonly: true
+	has_many :programming_tasks, readonly: true
 
 	ROLES = %w[admin author member banned]
 
@@ -22,6 +27,10 @@ class User < ActiveRecord::Base
 
 	def is?(role)
 		roles.include?(role.to_s)
+	end
+
+	def assign_default_role
+		self.roles = %w[member] if self.roles.blank?
 	end
 
 end
