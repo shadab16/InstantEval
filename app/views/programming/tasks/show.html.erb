@@ -61,6 +61,18 @@
 	<div class="span4">
 		<p><strong>Program Submissions:</strong></p>
 		<div class="well">
+			<p>
+				Deadline:
+				<% if @task.deadline.blank? %>
+					<span class="label label-info">No Deadline</span>
+				<% elsif @task.deadline < Time.zone.now %>
+					<span class="label"><%= l @task.deadline.to_date %></span>
+				<% elsif @task.deadline - Time.zone.now < 1.day %>
+					<span class="label label-important"><%= l @task.deadline.to_date %></span>
+				<% else %>
+					<span class="label label-warning"><%= l @task.deadline.to_date %></span>
+				<% end %>
+			</p>
 			<% if @task.programs.count > 0 %>
 			<table class="table">
 			<thead>
