@@ -53,7 +53,10 @@
 		</tr>
 	</thead>
 	<tbody>
+		<% hidden = 0 %>
+		<% hidden_status = 'OK' %>
 		<% @program.program_results.each do |result| %>
+		<% unless result.programming_test_case.hidden %>
 		<tr>
 			<td><%= result.programming_test_case_id %></td>
 			<td class="code"><%= result.programming_test_case.stdout.inspect %></td>
@@ -63,7 +66,21 @@
 					<%= result.status_code.name %></strong>
 			</td>
 		</tr>
+		<% else %>
+			<% hidden += 1%>
+			<% hidden_status = result.status_code.name if result.status_code.name != 'OK' %>
 		<% end %>
+		<% end %>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2">
+				<%= pluralize hidden, 'Hidden Test Case' %>
+			</td>
+			<td>
+				<strong class="label <%= status_label(hidden_status) %>">
+					<%= hidden_status %></strong>
+			</td>
+		</tr>
 	</tbody>
 </table>
 <% end %>

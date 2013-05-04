@@ -100,6 +100,7 @@
 <h4>Test Cases</h4>
 
 <% @task.programming_test_cases.each do |testcase| %>
+<% next if testcase.hidden %>
 <div class="row">
 	<div class="span6">
 		<p><strong>Test Case Input:</strong></p>

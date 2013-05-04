@@ -75,5 +75,11 @@
 				<%= builder.text_area :stdout, rows: 5, class: 'input-xxlarge' %>
 			</div>
 		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= builder.check_box :hidden, class: 'pull-left' %>
+				<%= builder.label :hidden, 'Hidden Test Case', class: 'checkbox' %>
+			</div>
+		</div>
 	<% end %>
 </fieldset>

@@ -1,6 +1,6 @@
 class ProgrammingTestCase < ActiveRecord::Base
 
-	attr_accessible :stdin, :stdout
+	attr_accessible :stdin, :stdout, :hidden
 
 	validates :stdin, presence: true
 	validates :stdout, presence: true

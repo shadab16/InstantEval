@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130504000300) do
+ActiveRecord::Schema.define(:version => 20130504022749) do
 
   create_table "program_results", :force => true do |t|
     t.integer  "program_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20130504000300) do
     t.text     "stdout"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.boolean  "hidden"
   end
 
   create_table "programs", :force => true do |t|
