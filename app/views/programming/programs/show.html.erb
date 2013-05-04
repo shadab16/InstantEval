@@ -11,41 +11,44 @@
 	<% end %>
 </p>
 
-<table class="table table-striped">
-	<tbody>
-	<tr>
-		<td>Programming Language</td>
-		<td><%= @program.programming_language.name %></td>
-	</tr>
-	<% if @program.status_code %>
-	<tr>
-		<td>Status</td>
-		<td>
-			<strong class="label <%= status_label(@program.status_code.name) %>">
-				<%= @program.status_code.name %></strong> -
-			<%= @program.status_code.description %>
-		</td>
-	</tr>
-	<% end %>
-	<% if @program.user %>
-	<tr>
-		<td>User</td>
-		<td><%= @program.user.email %></td>
-	</tr>
-	<% end %>
-	</tbody>
-</table>
+<div class="well">
+	<table class="table">
+		<tbody>
+		<tr>
+			<td>Programming Language</td>
+			<td><%= @program.programming_language.name %></td>
+		</tr>
+		<% if @program.status_code %>
+		<tr>
+			<td>Status</td>
+			<td>
+				<strong class="label <%= status_label(@program.status_code.name) %>">
+					<%= @program.status_code.name %></strong> -
+				<%= @program.status_code.description %>
+			</td>
+		</tr>
+		<% end %>
+		<% if @program.user %>
+		<tr>
+			<td>User</td>
+			<td><%= link_to @program.user.username, @program.user %></td>
+		</tr>
+		<% end %>
+		</tbody>
+	</table>
+</div>
 
+<h3>Source Code</h3>
 <pre><%= @program.source_code %></pre>
 
 <% if @program.program_results.any? %>
-<p>Program Results</p>
+<h3>Program Results</h3>
 <table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Test#</th>
-			<th>Expected</th>
-			<th>Output</th>
+			<th width="40%">Expected</th>
+			<th width="40%">Output</th>
 			<th>Result</th>
 		</tr>
 	</thead>
