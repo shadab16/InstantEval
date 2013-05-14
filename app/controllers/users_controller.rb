@@ -8,13 +8,15 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find_by_id(params[:id]) || not_found
+		authorize! :update, @user
 	end
 
 	def update
 		@user = User.find_by_id(params[:id]) || not_found
+		authorize! :update, @user
 		@user.roles = params[:user][:roles]
 		if @user.save
-			flash[:success] = "User Roles Updated!"
+			flash[:success] = 'User Roles Updated!'
 			redirect_to @user
 		else
 			render :edit
